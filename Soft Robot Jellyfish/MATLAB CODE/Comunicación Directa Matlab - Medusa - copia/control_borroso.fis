@@ -1,0 +1,70 @@
+[System]
+Name='control_borroso'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=3
+NumRules=12
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='error_X'
+Range=[-900 900]
+NumMFs=5
+MF1='e+g':'trapmf',[-900 -900 -360 -180]
+MF2='e+p':'trimf',[-360 -180 0]
+MF3='z':'trimf',[-180 0 180]
+MF4='e-p':'trimf',[0 180 360]
+MF5='e-g':'trapmf',[180 360 900 900]
+
+[Input2]
+Name='error_Y'
+Range=[-900 900]
+NumMFs=5
+MF1='e+g':'trapmf',[-900 -900 -360 -180]
+MF2='e+p':'trimf',[-360 -180 0]
+MF3='z':'trimf',[-180 0 180]
+MF4='e-p':'trimf',[0 180 360]
+MF5='e-g':'trapmf',[180 360 900 900]
+
+[Output1]
+Name='SMA_DERECHA'
+Range=[0 355]
+NumMFs=3
+MF1='z':'trimf',[0 0 0.4743]
+MF2='pwm200':'trimf',[217.81746031746 231.81746031746 244.81746031746]
+MF3='pwm255':'trimf',[288.314814814815 309.314814814815 316.314814814815]
+
+[Output2]
+Name='SMA_CENTRO'
+Range=[0 355]
+NumMFs=3
+MF1='z':'trimf',[0 0 0.6603]
+MF2='pwm200':'trimf',[294.060846560847 308.060846560847 321.060846560847]
+MF3='pwm255':'trimf',[297.804232804233 318.804232804233 325.804232804233]
+
+[Output3]
+Name='SMA_IZQUIERDA'
+Range=[0 355]
+NumMFs=3
+MF1='z':'trimf',[0 0 0.01545]
+MF2='pwm200':'trimf',[218 232 245]
+MF3='pwm255':'trimf',[288.3 309.3 316.3]
+
+[Rules]
+1 0, 3 1 1 (1) : 1
+2 0, 2 1 1 (1) : 1
+3 0, 0 1 1 (1) : 1
+4 0, 1 1 2 (1) : 1
+5 0, 1 1 3 (1) : 1
+0 5, 1 1 1 (1) : 1
+0 4, 1 1 1 (1) : 1
+0 3, 1 1 1 (1) : 1
+1 0, 3 1 1 (1) : 1
+0 1, 1 3 1 (1) : 1
+0 2, 1 2 1 (1) : 1
+1 0, 0 1 1 (1) : 1
